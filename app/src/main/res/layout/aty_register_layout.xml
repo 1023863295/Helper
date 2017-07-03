@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include
+        layout="@layout/top_title_layout"></include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginRight="40px"
+        android:layout_marginLeft="40px"
+        android:paddingTop="10px"
+        android:paddingBottom="10px"
+        android:text="请使用个人常用的手机号码，以便忘记密码找回"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="20px"
+        android:layout_marginRight="40px"
+        android:layout_marginLeft="40px"
+        android:padding="10px">
+
+        <EditText
+            android:id="@+id/register_edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="请输入手机号"/>
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入验证码"/>
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <EditText
+            android:id="@+id/register_edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="请设置面长度(6-16位)"/>
+
+        <Button
+            android:id="@+id/register_btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corner_loght_blue"
+            android:textColor="@color/white"
+            android:text="注   册"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginRight="40px"
+        android:layout_marginLeft="40px"
+        android:paddingTop="10px"
+        android:paddingBottom="10px"
+        android:text="注册即表示你同意《帮帮购软件许可协议》"/>
+
+</com.zhy.autolayout.AutoLinearLayout>
