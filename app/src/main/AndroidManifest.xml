@@ -40,6 +40,10 @@
         <activity android:name=".ui.FindBackAty"
             android:screenOrientation="portrait"></activity>
 
+        <!-- 修改个人信息页面 -->
+        <activity android:name=".ui.UserInfoAty"
+            android:screenOrientation="portrait"></activity>
+
 
     </application>
 
