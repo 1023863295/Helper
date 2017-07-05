@@ -11,17 +11,16 @@ import com.vip.helper.R;
 
 /**
  * 作者：liuliang
- * 时间 2017/7/4 23:07
+ * 时间 2017/7/5 23:08
  * 邮箱：liang.liu@zmind.cn
- * 消息頁面
  */
-public class MessageFragment extends Fragment{
+public class FindFragment extends Fragment {
     private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_message, container, false);
+        view = inflater.inflate(R.layout.fragment_find, container, false);
         return view;
     }
 }
