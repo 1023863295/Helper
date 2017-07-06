@@ -1,10 +1,14 @@
 package com.vip.helper.ui;
 
+import android.content.Intent;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.vip.helper.R;
@@ -14,21 +18,25 @@ import com.vip.helper.fragment.MainFragment;
 import com.vip.helper.fragment.MessageFragment;
 import com.vip.helper.fragment.MineFragment;
 import com.vip.helper.fragment.PublishFragment;
+import com.vip.helper.tool.SharedPreferencesHelper;
+import com.vip.helper.tool.StringUtil;
 
 /**
  * 作者：liuliang
  * 时间 2017/7/3 22:00
  * 邮箱：liang.liu@zmind.cn
  */
-public class HomeAty extends BaseAty implements View.OnClickListener{
+public class HomeAty extends BaseAty implements View.OnClickListener ,RadioGroup.OnCheckedChangeListener{
     private ImageView imgBack;
     private TextView textTitle;
 
-    private TextView textMain;
-    private TextView textFind;
-    private TextView textPublish;
-    private  TextView textMessage;
-    private  TextView textMine;
+
+    private RadioGroup radioGroupBottom;
+    private RadioButton rbMain;
+    private RadioButton rbFind;
+    private RadioButton rbPublish;
+    private  RadioButton rbMessage;
+    private  RadioButton rbMine;
 
     private Fragment currentFragment;
     private MainFragment mainFragment;
@@ -69,21 +77,29 @@ public class HomeAty extends BaseAty implements View.OnClickListener{
         ft.replace(R.id.home_frame_container,mainFragment);
         ft.commit();
 
-        textMain = (TextView)findViewById(R.id.home_bottom_main);
-        textMain.setOnClickListener(this);
-        textFind = (TextView)findViewById(R.id.home_bottom_find);
-        textFind.setOnClickListener(this);
-        textPublish = (TextView)findViewById(R.id.home_bottom_publish);
-        textPublish.setOnClickListener(this);
-        textMessage = (TextView)findViewById(R.id.home_bottom_message);
-        textMessage.setOnClickListener(this);
-        textMine = (TextView)findViewById(R.id.home_bottom_mine);
-        textMine.setOnClickListener(this);
+
+        radioGroupBottom = (RadioGroup)findViewById(R.id.home_bottom_bar);
+        radioGroupBottom.setOnCheckedChangeListener(this);
+        rbMain = (RadioButton)findViewById(R.id.home_bottom_main);
+        rbMain.setOnClickListener(this);
+        rbFind = (RadioButton)findViewById(R.id.home_bottom_find);
+        rbFind.setOnClickListener(this);
+        rbPublish = (RadioButton)findViewById(R.id.home_bottom_publish);
+        rbPublish.setOnClickListener(this);
+        rbMessage = (RadioButton)findViewById(R.id.home_bottom_message);
+        rbMessage.setOnClickListener(this);
+        rbMine = (RadioButton)findViewById(R.id.home_bottom_mine);
+        rbMine.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        switch (checkedId){
             case R.id.home_bottom_main:
                 setFragment(mainFragment);
                 textTitle.setText("首页");
@@ -101,8 +117,15 @@ public class HomeAty extends BaseAty implements View.OnClickListener{
                 textTitle.setText("消息");
                 break;
             case R.id.home_bottom_mine:
-                setFragment(mineFragment);
-                textTitle.setText("我的");
+                if (StringUtil.isEmpty(SharedPreferencesHelper.getData(this,"user_name","")+"")){
+                    //未登陆，跳转至登陆页面
+                    Intent intentLogin = new Intent(this,LoginAty.class);
+                    startActivity(intentLogin);
+                    rbMine.setChecked(false);
+                }else{
+                    setFragment(mineFragment);
+                    textTitle.setText("我的");
+                }
                 break;
         }
     }

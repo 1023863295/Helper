@@ -36,7 +36,7 @@ public class WelcomeAty extends BaseAty {
 
     @Override
     protected void initView() {
-        timer.schedule(timerTask,3000);
+        timer.schedule(timerTask,1000);
     }
 
     @Override
