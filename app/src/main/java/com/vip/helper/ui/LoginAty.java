@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.vip.helper.R;
 import com.vip.helper.base.BaseAty;
+import com.vip.helper.tool.StringUtil;
+import com.vip.helper.tool.ToastUtil;
 
 /**
  * 作者：liuliang
@@ -22,6 +24,10 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
     private EditText editTextUsername;
     private EditText editTextPassword;
     private Button btnLogin;
+
+    private String strUsername;
+    private String strPassword;
+
     private TextView textRegister;
     private TextView textForgot;
 
@@ -64,6 +70,7 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
                 finish();
                 break;
             case R.id.login_btn_login:
+                login();
                 break;
             case R.id.login_text_register:
                 Intent intentRegister = new Intent(this,RegisterAty.class);
@@ -74,6 +81,31 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
                 startActivity(intentFindBack);
                 break;
         }
+    }
 
+    private boolean check(){
+        strUsername = editTextUsername.getText().toString();
+        strPassword = editTextPassword.getText().toString();
+        if (StringUtil.isEmpty(strUsername)){
+            ToastUtil.showShortToast(this,"用户名不能为空");
+            return  false;
+        }else if(!StringUtil.isPhone(strUsername)){
+            ToastUtil.showShortToast(this,"请输入正确手机号");
+            return  false;
+        }else if(StringUtil.isEmpty(strPassword)){
+            ToastUtil.showShortToast(this,"密码不能为空");
+            return  false;
+        }else if(strPassword.length()< 6){
+            ToastUtil.showShortToast(this,"密码输入有误");
+            return  false;
+        }
+        return  true;
+    }
+
+    //登录
+    private void login(){
+        if(check()){
+
+        }
     }
 }

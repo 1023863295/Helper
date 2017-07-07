@@ -21,12 +21,17 @@
             android:id="@+id/login_edit_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:singleLine="true"
             android:hint="请输入手机号"/>
 
         <EditText
             android:id="@+id/login_edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:maxLength="16"
             android:hint="请填写密码"/>
 
         <Button

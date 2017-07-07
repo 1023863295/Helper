@@ -25,6 +25,7 @@ public class WelcomeAty extends BaseAty {
             public void run() {
                 Intent intent = new Intent(WelcomeAty.this,HomeAty.class);
                 startActivity(intent);
+                finish();
             }
         };
     }

@@ -37,6 +37,7 @@ public class HomeAty extends BaseAty implements View.OnClickListener ,RadioGroup
     private RadioButton rbPublish;
     private  RadioButton rbMessage;
     private  RadioButton rbMine;
+    private int indexSelect = 0; //选中第几个
 
     private Fragment currentFragment;
     private MainFragment mainFragment;
@@ -103,29 +104,25 @@ public class HomeAty extends BaseAty implements View.OnClickListener ,RadioGroup
             case R.id.home_bottom_main:
                 setFragment(mainFragment);
                 textTitle.setText("首页");
+                indexSelect = 0;
                 break;
             case R.id.home_bottom_find:
                 setFragment(findFragment);
                 textTitle.setText("发现");
+                indexSelect = 1;
                 break;
             case R.id.home_bottom_publish:
                 setFragment(publishFragment);
                 textTitle.setText("发布");
+                indexSelect = 2;
                 break;
             case R.id.home_bottom_message:
                 setFragment(messageFragment);
                 textTitle.setText("消息");
+                indexSelect = 3;
                 break;
             case R.id.home_bottom_mine:
-                if (StringUtil.isEmpty(SharedPreferencesHelper.getData(this,"user_name","")+"")){
-                    //未登陆，跳转至登陆页面
-                    Intent intentLogin = new Intent(this,LoginAty.class);
-                    startActivity(intentLogin);
-                    rbMine.setChecked(false);
-                }else{
-                    setFragment(mineFragment);
-                    textTitle.setText("我的");
-                }
+                clickMine();
                 break;
         }
     }
@@ -139,6 +136,32 @@ public class HomeAty extends BaseAty implements View.OnClickListener ,RadioGroup
             ft.replace(R.id.home_frame_container,fragment);
             ft.commit();
             currentFragment = fragment;
+        }
+    }
+
+    private void clickMine(){
+        if (StringUtil.isEmpty(SharedPreferencesHelper.getData(this,"user_name","")+"")){
+            //未登陆，跳转至登陆页面
+            Intent intentLogin = new Intent(this,LoginAty.class);
+            startActivity(intentLogin);
+            switch (indexSelect){
+                case 0:
+                    rbMain.setChecked(true);
+                    break;
+                case 1:
+                    rbFind.setChecked(true);
+                    break;
+                case 2:
+                    rbPublish.setChecked(true);
+                    break;
+                case 3:
+                    rbMessage.setChecked(true);
+                    break;
+            }
+            rbMine.setChecked(false);
+        }else{
+            setFragment(mineFragment);
+            textTitle.setText("我的");
         }
     }
 }
