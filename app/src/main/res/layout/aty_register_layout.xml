@@ -36,9 +36,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:id="@+id/register_edit_verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:hint="请输入验证码"/>
+
+            <TextView
+                android:id="@+id/register_text_get_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@color/color_light_blue"
+                android:textColor="@color/white"
+                android:padding="10px"
+                android:text="获取"/>
         </com.zhy.autolayout.AutoRelativeLayout>
 
         <EditText
