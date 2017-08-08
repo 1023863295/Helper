@@ -1,5 +1,6 @@
 package com.vip.helper.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import com.vip.helper.R;
 import com.vip.helper.adapter.MesaageAdapter;
 import com.vip.helper.bean.MessageBean;
+import com.vip.helper.view.StateLayoutView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +30,35 @@ public class MessageFragment extends Fragment{
     private List<MessageBean> mlist;
     private MesaageAdapter mesaageAdapter;
 
+    protected Activity mActivity;
+    protected StateLayoutView stateLayoutView;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.mActivity = activity;
+    }
+
+    public Activity getmActivity() {
+        return mActivity;
+    }
+
+    //防止Fragment重复加载
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_message, container, false);
-        initView();
-        return view;
+        if (stateLayoutView == null){
+            // 说明这个Fragemnt的onCreateView方法是第一次执行
+            view = inflater.inflate(R.layout.fragment_message, container, false);
+            stateLayoutView = stateLayoutView.newInstance(mActivity, view);
+            initView();
+        }else{
+            ViewGroup parent = (ViewGroup) stateLayoutView.getParent();
+            if (parent != null) {
+                parent.removeView(stateLayoutView);
+            }
+        }
+        return stateLayoutView;
     }
 
     private void initView(){
@@ -44,6 +69,7 @@ public class MessageFragment extends Fragment{
         mesaageAdapter = new MesaageAdapter();
         mesaageAdapter.setmList(mlist);
         recyclerView.setAdapter(mesaageAdapter);
+        stateLayoutView.showFailView();
     }
 
     private void initDate(){
