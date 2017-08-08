@@ -4,6 +4,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/fragment_mycenter_rl_vip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/fragment_mycenter_img_head"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/fragment_mycenter_img_head"
+            android:layout_toRightOf="@id/fragment_mycenter_img_head"
+            android:textColor="@color/black"
+            android:paddingTop="20px"
+            android:text="name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/fragment_mycenter_img_head"
+            android:layout_toRightOf="@id/fragment_mycenter_img_head"
+            android:paddingBottom="20px"
+            android:text="status"/>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,6 +92,7 @@
             android:text="我收藏的"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/fragment_mycenter_rl_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16px"

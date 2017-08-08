@@ -2,21 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vip.helper">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".global.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".global.MyApplication"
         android:theme="@style/AppTheme.NoActionBar">
-        <!--  autoLayout-->
-        <meta-data android:name="design_width" android:value="720"></meta-data>
-        <meta-data android:name="design_height" android:value="1280"></meta-data>
 
-        <activity android:name=".ui.WelcomeAty"
+        <!-- autoLayout -->
+        <meta-data
+            android:name="design_width"
+            android:value="720" />
+        <meta-data
+            android:name="design_height"
+            android:value="1280" />
+
+        <activity
+            android:name=".ui.WelcomeAty"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,27 +32,32 @@
         </activity>
 
         <!-- 主页面 -->
-        <activity android:name=".ui.HomeAty"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.HomeAty"
+            android:screenOrientation="portrait" />
 
         <!-- 登录 -->
-        <activity android:name=".ui.LoginAty"
-            android:screenOrientation="portrait"></activity>
-
+        <activity
+            android:name=".ui.LoginAty"
+            android:screenOrientation="portrait" />
 
         <!-- 注册页面 -->
-        <activity android:name=".ui.RegisterAty"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.RegisterAty"
+            android:screenOrientation="portrait" />
 
         <!-- 找回密碼页面 -->
-        <activity android:name=".ui.FindBackAty"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.FindBackAty"
+            android:screenOrientation="portrait" />
 
         <!-- 修改个人信息页面 -->
-        <activity android:name=".ui.UserInfoAty"
+        <activity
+            android:name=".ui.UserInfoAty"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.SettingActivity"
             android:screenOrientation="portrait"></activity>
-
-
     </application>
 
 </manifest>

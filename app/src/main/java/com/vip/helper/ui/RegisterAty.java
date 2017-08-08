@@ -1,5 +1,7 @@
 package com.vip.helper.ui;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +48,39 @@ public class RegisterAty extends BaseAty implements View.OnClickListener{
     private String password;
     private String verifyCode;
     private Button btnRigister;
+
+    public static final int GET_CODE_RESULT = 100;
+    public static final int GET_REGISTER = 200;
+
+
+    public static final int GET_CODE_SUCCESS = 10;
+    public static final int GET_CODE_FAILD = 20;
+    public static final int REGISTER_SUCCESS = 30;
+    public static final int REGISTER_FAILD = 40;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case GET_CODE_FAILD:
+                    ToastUtil.showShortToast(RegisterAty.this,"获取验证码失败");
+                    break;
+                case GET_CODE_SUCCESS:
+                    ToastUtil.showShortToast(RegisterAty.this,"发送成功");
+                    break;
+                case REGISTER_FAILD:
+                    ToastUtil.showShortToast(RegisterAty.this,"注册失败");
+                    break;
+                case REGISTER_SUCCESS:
+                    ToastUtil.showShortToast(RegisterAty.this,"注册成功");
+                    finish();
+                    break;
+            }
+        }
+    };
+
+
 
     @Override
     protected void initData() {
@@ -128,7 +163,9 @@ public class RegisterAty extends BaseAty implements View.OnClickListener{
                 }));
 
                 if (jsonData.header.rspCode.equals("0000")){
-
+                    handler.sendEmptyMessage(GET_CODE_SUCCESS);
+                }else{
+                    handler.sendEmptyMessage(GET_CODE_FAILD);
                 }
             }
         });
@@ -170,7 +207,18 @@ public class RegisterAty extends BaseAty implements View.OnClickListener{
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String s = response.body().string();
+                Log.i("test",s);
+                CommonResult<Object> jsonData = GsonUtils
+                        .convertBeanFromJson(s,
+                                (new TypeToken<CommonResult<Object>>(){
+                                }));
 
+                if (jsonData.header.rspCode.equals("0000")){
+                    handler.sendEmptyMessage(REGISTER_SUCCESS);
+                }else{
+                    handler.sendEmptyMessage(REGISTER_FAILD);
+                }
             }
         });
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.vip.helper.ui.SettingActivity">
+
+    <include
+        android:id="@+id/setting_top"
+        layout="@layout/top_title_layout"></include>
+
+    <Button
+        android:id="@+id/setting_btn_loginout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerInParent="true"
+        android:text="退出登录"/>
+
+</RelativeLayout>

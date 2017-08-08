@@ -1,16 +1,36 @@
 package com.vip.helper.ui;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.vip.helper.R;
 import com.vip.helper.base.BaseAty;
+import com.vip.helper.bean.CommonResult;
+import com.vip.helper.bean.VipUserBean;
+import com.vip.helper.global.Constants;
+import com.vip.helper.tool.GsonUtils;
+import com.vip.helper.tool.OkhttpUtil;
+import com.vip.helper.tool.SharedPreferencesHelper;
 import com.vip.helper.tool.StringUtil;
 import com.vip.helper.tool.ToastUtil;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * 作者：liuliang
@@ -30,6 +50,26 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
 
     private TextView textRegister;
     private TextView textForgot;
+
+
+    public static final int LOGIN_SUCCESS = 10;
+    public static final int LOGIN_FAILD = 20;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case LOGIN_FAILD:
+                    ToastUtil.showShortToast(LoginAty.this,"登录失败");
+                    break;
+                case LOGIN_SUCCESS:
+                    ToastUtil.showShortToast(LoginAty.this,"登录成功");
+                    break;
+            }
+        }
+    };
+
 
     @Override
     protected void initData() {
@@ -104,8 +144,42 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
 
     //登录
     private void login(){
-        if(check()){
-
+        if (!check()){
+            return;
         }
+        OkHttpClient okHttpClient = OkhttpUtil.getInstance().getOkHttpClient();
+        RequestBody formBody = new FormBody.Builder()
+                .add("loginName", strUsername)
+                .add("password", strPassword)
+                .build();
+        Request request = new Request.Builder()
+                .url(Constants.LOGIN_URL)
+                .post(formBody)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String s = response.body().string();
+                Log.i("test",s);
+                CommonResult<VipUserBean> jsonData = GsonUtils
+                        .convertBeanFromJson(s,
+                                (new TypeToken<CommonResult<VipUserBean>>(){
+                                }));
+
+                if (jsonData.header.rspCode.equals("0000")){
+                    handler.sendEmptyMessage(LOGIN_SUCCESS);
+                    SharedPreferencesHelper.saveData(LoginAty.this,Constants.USER_ID,jsonData.body.userid);
+
+                }else{
+                    handler.sendEmptyMessage(LOGIN_FAILD);
+                }
+            }
+        });
     }
 }

@@ -18,6 +18,7 @@ import com.vip.helper.fragment.MainFragment;
 import com.vip.helper.fragment.MessageFragment;
 import com.vip.helper.fragment.MineFragment;
 import com.vip.helper.fragment.PublishFragment;
+import com.vip.helper.global.Constants;
 import com.vip.helper.tool.SharedPreferencesHelper;
 import com.vip.helper.tool.StringUtil;
 import com.vip.helper.tool.ToastUtil;
@@ -141,7 +142,7 @@ public class HomeAty extends BaseAty implements View.OnClickListener ,RadioGroup
     }
 
     private void clickMine(){
-        if (StringUtil.isEmpty(SharedPreferencesHelper.getData(this,"user_name","")+"")){
+        if (StringUtil.isEmpty(SharedPreferencesHelper.getData(this, Constants.USER_ID,"")+"")){
             //未登陆，跳转至登陆页面
             Intent intentLogin = new Intent(this,LoginAty.class);
             startActivity(intentLogin);
@@ -166,6 +167,10 @@ public class HomeAty extends BaseAty implements View.OnClickListener ,RadioGroup
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     private long lastBackPress;
     @Override
