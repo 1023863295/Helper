@@ -50,6 +50,13 @@ public class StateLayoutView extends FrameLayout {
         failView = findViewById(R.id.failView);
         emptyView = findViewById(R.id.emptyView);
 
+        failView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reLoad();
+            }
+        });
+
         showLoadingView();
     }
 
@@ -82,5 +89,20 @@ public class StateLayoutView extends FrameLayout {
             View child = getChildAt(i);	//
             child.setVisibility(view == child ? View.VISIBLE : View.GONE);
         }
+    }
+
+    /*重新加载*/
+    public void reLoad(){
+        if (reloadListener != null){
+            reloadListener.reLoad();
+        }
+    }
+    private ReloadListener reloadListener;
+    public  interface  ReloadListener{
+       public void reLoad();
+    }
+
+    public void setReloadListener(ReloadListener reloadListener) {
+        this.reloadListener = reloadListener;
     }
 }

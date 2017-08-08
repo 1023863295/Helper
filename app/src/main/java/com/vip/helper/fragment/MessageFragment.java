@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.vip.helper.R;
 import com.vip.helper.adapter.MesaageAdapter;
 import com.vip.helper.bean.MessageBean;
+import com.vip.helper.tool.ToastUtil;
 import com.vip.helper.view.StateLayoutView;
 
 import java.util.ArrayList;
@@ -77,6 +78,12 @@ public class MessageFragment extends Fragment{
         mesaageAdapter = new MesaageAdapter();
         mesaageAdapter.setmList(mlist);
         recyclerView.setAdapter(mesaageAdapter);
+        stateLayoutView.setReloadListener(new StateLayoutView.ReloadListener() {
+            @Override
+            public void reLoad() {
+                ToastUtil.showShortToast(getActivity(),"重新加载");
+            }
+        });
         stateLayoutView.showFailView();
     }
 
