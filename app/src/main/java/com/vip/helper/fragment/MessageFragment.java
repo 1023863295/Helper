@@ -1,6 +1,7 @@
 package com.vip.helper.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,10 +34,17 @@ public class MessageFragment extends Fragment{
     protected Activity mActivity;
     protected StateLayoutView stateLayoutView;
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.mActivity = activity;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (Activity)context;
     }
 
     public Activity getmActivity() {
