@@ -20,6 +20,7 @@ import com.vip.helper.fragment.MineFragment;
 import com.vip.helper.fragment.PublishFragment;
 import com.vip.helper.tool.SharedPreferencesHelper;
 import com.vip.helper.tool.StringUtil;
+import com.vip.helper.tool.ToastUtil;
 
 /**
  * 作者：liuliang
@@ -162,6 +163,18 @@ public class HomeAty extends BaseAty implements View.OnClickListener ,RadioGroup
         }else{
             setFragment(mineFragment);
             textTitle.setText("我的");
+        }
+    }
+
+
+    private long lastBackPress;
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastBackPress < 2000) {
+            super.onBackPressed();
+        } else {
+            lastBackPress = System.currentTimeMillis();
+            ToastUtil.showShortToast(this, "再按一次退出");
         }
     }
 }
