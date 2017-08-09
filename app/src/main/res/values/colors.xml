@@ -8,4 +8,11 @@
     <color name="black">#000000</color>
 
     <color name="color_light_blue">#FF3682D5</color>
+
+
+    <color name="red">#900</color>
+    <color name="green">#090</color>
+    <color name="blue">#009</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent2">#77000000</color>
 </resources>
