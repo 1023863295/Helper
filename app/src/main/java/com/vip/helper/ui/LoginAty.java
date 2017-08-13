@@ -38,6 +38,7 @@ import okhttp3.Response;
  * 邮箱：liang.liu@zmind.cn
  */
 public class LoginAty extends BaseAty implements View.OnClickListener{
+
     private ImageView imgBack;
     private TextView textTitle;
 
@@ -61,10 +62,10 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
             super.handleMessage(msg);
             switch (msg.what){
                 case LOGIN_FAILD:
-                    ToastUtil.showShortToast(LoginAty.this,"登录失败");
+                    ToastUtil.showShortToast(LoginAty.this,"请稍后重试");
                     break;
                 case LOGIN_SUCCESS:
-                    ToastUtil.showShortToast(LoginAty.this,"登录成功");
+                   paraseResult(msg.obj.toString());
                     break;
             }
         }
@@ -83,6 +84,9 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
 
     @Override
     protected void initView() {
+//        rootView = findViewById(R.id.login_root_view);
+//        stateLayoutView =  StateLayoutView.newInstance(this,rootView);
+
         imgBack = (ImageView)findViewById(R.id.top_title_img_back);
         imgBack.setOnClickListener(this);
         textTitle = (TextView)findViewById(R.id.top_title_text_title);
@@ -160,26 +164,34 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                handler.sendEmptyMessage(LOGIN_FAILD);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
                 Log.i("test",s);
-                CommonResult<VipUserBean> jsonData = GsonUtils
-                        .convertBeanFromJson(s,
-                                (new TypeToken<CommonResult<VipUserBean>>(){
-                                }));
-
-                if (jsonData.header.rspCode.equals("0000")){
-                    handler.sendEmptyMessage(LOGIN_SUCCESS);
-                    SharedPreferencesHelper.saveData(LoginAty.this,Constants.USER_ID,jsonData.body.userid);
-
-                }else{
-                    handler.sendEmptyMessage(LOGIN_FAILD);
-                }
+                Message message = handler.obtainMessage();
+                message.what = LOGIN_SUCCESS;
+                message.obj = s;
+                handler.sendMessage(message);
             }
         });
+    }
+
+    //解析返回的结果
+    private void paraseResult(String result){
+
+        CommonResult<VipUserBean> jsonData = GsonUtils
+                .convertBeanFromJson(result,
+                        (new TypeToken<CommonResult<VipUserBean>>(){
+                        }));
+
+        if (jsonData.header.rspCode.equals("0000")){
+            ToastUtil.showShortToast(this,"登录成功");
+            SharedPreferencesHelper.saveData(LoginAty.this,Constants.USER_ID,jsonData.body.userid);
+        }else{
+            ToastUtil.showShortToast(this,jsonData.header.rspDesc);
+        }
     }
 }

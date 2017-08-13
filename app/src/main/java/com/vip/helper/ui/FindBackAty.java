@@ -1,5 +1,7 @@
 package com.vip.helper.ui;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -49,6 +51,33 @@ public class FindBackAty extends BaseAty implements View.OnClickListener{
     private String verifyCode;
 
     private Button btnYes;
+
+    public static final int GET_CODE_SUCCESS = 10;
+    public static final int GET_CODE_FAILD = 20;
+    public static final int FIND_BACK_SUCCESS = 30;
+    public static final int FIND_BACK_FAILD = 40;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case GET_CODE_FAILD:
+                    ToastUtil.showShortToast(FindBackAty.this,"请稍后重试");
+                    break;
+                case GET_CODE_SUCCESS:
+                    paraseGetCodeResult(msg.obj.toString());
+                    break;
+                case FIND_BACK_FAILD:
+                    ToastUtil.showShortToast(FindBackAty.this,"请稍后重试");
+                    break;
+                case FIND_BACK_SUCCESS:
+                    paraseModifyResult(msg.obj.toString());
+                    break;
+
+            }
+        }
+    };
 
     @Override
     protected void initData() {
@@ -120,26 +149,36 @@ public class FindBackAty extends BaseAty implements View.OnClickListener{
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                handler.sendEmptyMessage(GET_CODE_FAILD);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
                 Log.i("test",s);
-                CommonResult<MessageBean> jsonData = GsonUtils
-                        .convertBeanFromJson(s,
-                                (new TypeToken<CommonResult<MessageBean>>(){
-                                }));
+                Message message = handler.obtainMessage();
+                message.obj = s;
+                message.what = GET_CODE_SUCCESS;
+                handler.sendMessage(message);
 
-                if (jsonData.header.rspCode.equals("0000")){
-
-                }else{
-
-                }
             }
         });
     }
+
+    //解析获取验证码返回的结果
+    private void paraseGetCodeResult(String result){
+        CommonResult<MessageBean> jsonData = GsonUtils
+                .convertBeanFromJson(result,
+                        (new TypeToken<CommonResult<MessageBean>>(){
+                        }));
+
+        if (jsonData.header.rspCode.equals("0000")){
+            ToastUtil.showShortToast(this,"发送成功");
+        }else{
+            ToastUtil.showShortToast(this,jsonData.header.rspDesc);
+        }
+    }
+
 
     //点击注册之前检测输入是否合法
     private boolean check(String loginname,String password,String verifyCode){
@@ -172,26 +211,37 @@ public class FindBackAty extends BaseAty implements View.OnClickListener{
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                handler.sendEmptyMessage(FIND_BACK_FAILD);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
                 Log.i("test",s);
-                CommonResult<Object> jsonData = GsonUtils
-                        .convertBeanFromJson(s,
-                                (new TypeToken<CommonResult<Object>>(){
-                                }));
+                Message message = handler.obtainMessage();
+                message.what = FIND_BACK_SUCCESS;
+                message.obj = s;
+                handler.sendMessage(message);
 
-                if (jsonData.header.rspCode.equals("0000")){
-
-                }else{
-
-                }
             }
         });
     }
+
+    //解析修改密码返回的结果
+    private void paraseModifyResult(String result){
+        CommonResult<MessageBean> jsonData = GsonUtils
+                .convertBeanFromJson(result,
+                        (new TypeToken<CommonResult<MessageBean>>(){
+                        }));
+
+        if (jsonData.header.rspCode.equals("0000")){
+            ToastUtil.showShortToast(this,"修改成功");
+        }else{
+            ToastUtil.showShortToast(this,jsonData.header.rspDesc);
+        }
+    }
+
+
 
 
 }

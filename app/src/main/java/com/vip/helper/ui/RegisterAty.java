@@ -67,13 +67,13 @@ public class RegisterAty extends BaseAty implements View.OnClickListener{
                     ToastUtil.showShortToast(RegisterAty.this,"获取验证码失败");
                     break;
                 case GET_CODE_SUCCESS:
-                    ToastUtil.showShortToast(RegisterAty.this,"发送成功");
+                    paraseGetCodeResult(msg.obj.toString());
                     break;
                 case REGISTER_FAILD:
-                    ToastUtil.showShortToast(RegisterAty.this,"注册失败");
+                    ToastUtil.showShortToast(RegisterAty.this,"请稍后重试");
                     break;
                 case REGISTER_SUCCESS:
-                    ToastUtil.showShortToast(RegisterAty.this,"注册成功");
+                    paraseRegisterResult(msg.obj.toString());
                     finish();
                     break;
             }
@@ -150,25 +150,33 @@ public class RegisterAty extends BaseAty implements View.OnClickListener{
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                handler.sendEmptyMessage(GET_CODE_FAILD);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
                 Log.i("test",s);
-                CommonResult<MessageBean> jsonData = GsonUtils
-                        .convertBeanFromJson(s,
-                                (new TypeToken<CommonResult<MessageBean>>(){
-                }));
-
-                if (jsonData.header.rspCode.equals("0000")){
-                    handler.sendEmptyMessage(GET_CODE_SUCCESS);
-                }else{
-                    handler.sendEmptyMessage(GET_CODE_FAILD);
-                }
+               Message message = handler.obtainMessage();
+                message.obj = s;
+                message.what = GET_CODE_SUCCESS;
+                handler.sendMessage(message);
             }
         });
+    }
+
+    //解析注冊返回的结果
+    private void paraseGetCodeResult(String result){
+        CommonResult<MessageBean> jsonData = GsonUtils
+                .convertBeanFromJson(result,
+                        (new TypeToken<CommonResult<MessageBean>>(){
+                        }));
+
+        if (jsonData.header.rspCode.equals("0000")){
+            ToastUtil.showShortToast(this,"发送成功");
+        }else{
+            ToastUtil.showShortToast(this,jsonData.header.rspDesc);
+        }
     }
 
     //点击注册之前检测输入是否合法
@@ -202,24 +210,33 @@ public class RegisterAty extends BaseAty implements View.OnClickListener{
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                handler.sendEmptyMessage(REGISTER_FAILD);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
                 Log.i("test",s);
-                CommonResult<Object> jsonData = GsonUtils
-                        .convertBeanFromJson(s,
-                                (new TypeToken<CommonResult<Object>>(){
-                                }));
+                Message message = handler.obtainMessage();
+                message.what = REGISTER_SUCCESS;
+                message.obj = s;
+                handler.sendEmptyMessage(REGISTER_SUCCESS);
 
-                if (jsonData.header.rspCode.equals("0000")){
-                    handler.sendEmptyMessage(REGISTER_SUCCESS);
-                }else{
-                    handler.sendEmptyMessage(REGISTER_FAILD);
-                }
             }
         });
+    }
+
+    //解析注冊返回的结果
+    private void paraseRegisterResult(String result){
+        CommonResult<Object> jsonData = GsonUtils
+                .convertBeanFromJson(result,
+                        (new TypeToken<CommonResult<Object>>(){
+                        }));
+
+        if (jsonData.header.rspCode.equals("0000")){
+            ToastUtil.showShortToast(this,"注冊成功");
+        }else{
+            ToastUtil.showShortToast(this,jsonData.header.rspDesc);
+        }
     }
 }
