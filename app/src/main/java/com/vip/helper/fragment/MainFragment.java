@@ -1,12 +1,13 @@
 package com.vip.helper.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.vip.helper.global.Constants;
 import com.vip.helper.tool.OkhttpUtil;
 import com.vip.helper.tool.SharedPreferencesHelper;
 import com.vip.helper.tool.ToastUtil;
+import com.vip.helper.ui.WebAty;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,13 +39,14 @@ import okhttp3.Response;
  * 时间 2017/7/5 23:09
  * 邮箱：liang.liu@zmind.cn
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements MainGridAdapter.OnRecyclerViewItemClickListener{
     private View view;
 
     private RecyclerView gridRecycleView;
     private MainGridAdapter gridAdapter;
     private RecyclerView listRecycleView;
 
+    private List<Integer> gridList;
     private List<OrderBean> orderBeanList;
 
     private int pageIndex = 0;
@@ -80,10 +83,18 @@ public class MainFragment extends Fragment {
     private void initView(){
         gridRecycleView = (RecyclerView)view.findViewById(R.id.main_fragment_gridview);
         //设置布局管理器
-        gridRecycleView.setLayoutManager(new GridLayoutManager(getActivity(),4));
+        gridRecycleView.setLayoutManager(new StaggeredGridLayoutManager(4,
+                StaggeredGridLayoutManager.VERTICAL));
         //设置adapter
-        orderBeanList = new ArrayList<>();
-        gridAdapter = new MainGridAdapter(getActivity(),orderBeanList);
+        gridList = new ArrayList<>();
+
+        gridList.add(R.drawable.tab_icon_1);
+        gridList.add(R.drawable.tab_icon_1);
+        gridList.add(R.drawable.tab_icon_1);
+        gridList.add(R.drawable.tab_icon_1);
+
+        gridAdapter = new MainGridAdapter(getActivity(),gridList);
+        gridAdapter.setOnItemClickListener(this);
         gridRecycleView.setAdapter(gridAdapter);
 
         listRecycleView = (RecyclerView)view.findViewById(R.id.main_frame_listview);
@@ -127,6 +138,17 @@ public class MainFragment extends Fragment {
                 handler.sendMessage(message);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(View view) {
+        Intent intentWeb = new Intent(getActivity(),WebAty.class);
+        startActivity(intentWeb);
+    }
+
+    @Override
+    public void onItemLongClick(View view) {
+
     }
 
     //解析请求数据

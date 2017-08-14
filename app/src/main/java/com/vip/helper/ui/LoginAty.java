@@ -62,9 +62,11 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
             super.handleMessage(msg);
             switch (msg.what){
                 case LOGIN_FAILD:
+                    stateLayoutView.showContentView();
                     ToastUtil.showShortToast(LoginAty.this,"请稍后重试");
                     break;
                 case LOGIN_SUCCESS:
+                    stateLayoutView.showContentView();
                    paraseResult(msg.obj.toString());
                     break;
             }
@@ -151,6 +153,7 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
         if (!check()){
             return;
         }
+        stateLayoutView.showLoadingView();
         OkHttpClient okHttpClient = OkhttpUtil.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("loginName", strUsername)

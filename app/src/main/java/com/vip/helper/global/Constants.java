@@ -6,7 +6,7 @@ package com.vip.helper.global;
  * 邮箱：liang.liu@zmind.cn
  */
 public class Constants {
-
+    public static String WEB_SETTING_UA  = "";
     public static String USER_ID = "user_id";
 
     //获取验证码

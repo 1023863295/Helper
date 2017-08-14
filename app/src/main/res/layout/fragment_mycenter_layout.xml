@@ -22,7 +22,7 @@
             android:layout_alignTop="@id/fragment_mycenter_img_head"
             android:layout_toRightOf="@id/fragment_mycenter_img_head"
             android:textColor="@color/black"
-            android:paddingTop="20px"
+            android:paddingTop="30px"
             android:text="name"/>
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/fragment_mycenter_img_head"
             android:layout_toRightOf="@id/fragment_mycenter_img_head"
-            android:paddingBottom="20px"
+            android:paddingBottom="30px"
             android:text="status"/>
 
     </com.zhy.autolayout.AutoRelativeLayout>
@@ -40,13 +40,14 @@
         android:layout_height="wrap_content"
         android:paddingBottom="16px"
         android:paddingTop="16px"
+        android:paddingLeft="30px"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textColor="@color/black"
-            android:drawablePadding="20px"
+            android:drawablePadding="30px"
             android:text="我的求购"/>
     </RelativeLayout>
     <RelativeLayout
@@ -54,13 +55,15 @@
         android:layout_height="wrap_content"
         android:paddingBottom="16px"
         android:paddingTop="16px"
+        android:paddingLeft="30px"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textColor="@color/black"
-            android:drawablePadding="20px"
+            android:drawablePadding="30px"
+            android:textSize="14sp"
             android:text="我的代购"/>
     </RelativeLayout>
     <RelativeLayout
@@ -68,13 +71,15 @@
         android:layout_height="wrap_content"
         android:paddingBottom="16px"
         android:paddingTop="16px"
+        android:paddingLeft="30px"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textColor="@color/black"
-            android:drawablePadding="20px"
+            android:drawablePadding="30px"
+            android:textSize="14sp"
             android:text="我接单的"/>
     </RelativeLayout>
     <RelativeLayout
@@ -82,13 +87,15 @@
         android:layout_height="wrap_content"
         android:paddingBottom="16px"
         android:paddingTop="16px"
+        android:paddingLeft="30px"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textColor="@color/black"
-            android:drawablePadding="20px"
+            android:drawablePadding="30px"
+            android:textSize="14sp"
             android:text="我收藏的"/>
     </RelativeLayout>
     <RelativeLayout
@@ -97,13 +104,15 @@
         android:layout_height="wrap_content"
         android:paddingBottom="16px"
         android:paddingTop="16px"
+        android:paddingLeft="30px"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textColor="@color/black"
-            android:drawablePadding="20px"
+            android:drawablePadding="30px"
+            android:textSize="14sp"
             android:text="设置"/>
     </RelativeLayout>
 
