@@ -3,6 +3,7 @@
     package="com.vip.helper">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 
     <application
         android:name=".global.MyApplication"
@@ -55,6 +56,10 @@
         <activity
             android:name=".ui.UserInfoAty"
             android:screenOrientation="portrait" />
+
+        <!-- 订单列表 -->
+        <activity android:name=".ui.OrderListAty"
+            android:screenOrientation="portrait"></activity>
 
         <!-- web 页面-->
         <activity

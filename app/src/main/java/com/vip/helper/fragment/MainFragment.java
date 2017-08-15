@@ -83,11 +83,12 @@ public class MainFragment extends Fragment implements MainGridAdapter.OnRecycler
     private void initView(){
         gridRecycleView = (RecyclerView)view.findViewById(R.id.main_fragment_gridview);
         //设置布局管理器
-        gridRecycleView.setLayoutManager(new StaggeredGridLayoutManager(4,
+        gridRecycleView.setLayoutManager(new StaggeredGridLayoutManager(5,
                 StaggeredGridLayoutManager.VERTICAL));
         //设置adapter
         gridList = new ArrayList<>();
 
+        gridList.add(R.drawable.tab_icon_1);
         gridList.add(R.drawable.tab_icon_1);
         gridList.add(R.drawable.tab_icon_1);
         gridList.add(R.drawable.tab_icon_1);

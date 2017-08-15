@@ -9,7 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="30px"
+        android:src="@drawable/back_icon"/>
 
     <TextView
         android:id="@+id/top_title_text_title"

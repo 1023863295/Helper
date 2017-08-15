@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.vip.helper.R;
+import com.vip.helper.ui.OrderListAty;
 import com.vip.helper.ui.SettingActivity;
 import com.vip.helper.ui.UserInfoAty;
 
@@ -23,7 +24,14 @@ public class MineFragment extends Fragment implements View.OnClickListener{
 
 
     private RelativeLayout rlVipInfo;
+
+
+    private RelativeLayout rlMyWant;
+    private RelativeLayout rlMyReplace; //代购
+    private RelativeLayout rlMyReplace2;
+    private RelativeLayout rlMyStore;
     private RelativeLayout rlSetting;
+
 
     @Nullable
     @Override
@@ -38,8 +46,15 @@ public class MineFragment extends Fragment implements View.OnClickListener{
         rlVipInfo = (RelativeLayout)view.findViewById(R.id.fragment_mycenter_rl_vip);
         rlVipInfo.setOnClickListener(this);
 
+        rlMyWant  = (RelativeLayout)view.findViewById(R.id.fragment_mycenter_rl_want);
+        rlMyWant.setOnClickListener(this);
+        rlMyReplace = (RelativeLayout)view.findViewById(R.id.fragment_mycenter_rl_replace);
+        rlMyReplace.setOnClickListener(this);
+        rlMyStore = (RelativeLayout)view.findViewById(R.id.fragment_mycenter_rl_store);
+        rlMyStore.setOnClickListener(this);
         rlSetting = (RelativeLayout)view.findViewById(R.id.fragment_mycenter_rl_setting);
         rlSetting.setOnClickListener(this);
+
 
     }
 
@@ -49,6 +64,21 @@ public class MineFragment extends Fragment implements View.OnClickListener{
            case R.id.fragment_mycenter_rl_vip:
                Intent intentUserInfo = new Intent(getActivity(), UserInfoAty.class);
                startActivity(intentUserInfo);
+               break;
+           case R.id.fragment_mycenter_rl_want:
+               Intent intentWant = new Intent(getActivity(), OrderListAty.class);
+               intentWant.putExtra("type",0);
+               startActivity(intentWant);
+               break;
+           case R.id.fragment_mycenter_rl_replace:
+               Intent intentReplace = new Intent(getActivity(), OrderListAty.class);
+               intentReplace.putExtra("type",1);
+               startActivity(intentReplace);
+               break;
+           case R.id.fragment_mycenter_rl_store:
+               Intent intentStore = new Intent(getActivity(), OrderListAty.class);
+               intentStore.putExtra("type",2);
+               startActivity(intentStore);
                break;
            case R.id.fragment_mycenter_rl_setting:
                Intent intent = new Intent(getActivity(), SettingActivity.class);

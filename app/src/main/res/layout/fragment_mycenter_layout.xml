@@ -2,6 +2,7 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/page_gray_bg"
     android:orientation="vertical">
 
 
@@ -36,8 +37,10 @@
     </com.zhy.autolayout.AutoRelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/fragment_mycenter_rl_want"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
         android:paddingBottom="16px"
         android:paddingTop="16px"
         android:paddingLeft="30px"
@@ -46,13 +49,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:textColor="@color/black"
             android:drawablePadding="30px"
             android:text="我的求购"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:src="@drawable/arrow_gray_right"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/fragment_mycenter_rl_replace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2px"
         android:paddingBottom="16px"
         android:paddingTop="16px"
         android:paddingLeft="30px"
@@ -63,12 +77,21 @@
             android:layout_alignParentLeft="true"
             android:textColor="@color/black"
             android:drawablePadding="30px"
+            android:layout_centerVertical="true"
             android:textSize="14sp"
             android:text="我的代购"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:src="@drawable/arrow_gray_right"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2px"
         android:paddingBottom="16px"
         android:paddingTop="16px"
         android:paddingLeft="30px"
@@ -79,12 +102,22 @@
             android:layout_alignParentLeft="true"
             android:textColor="@color/black"
             android:drawablePadding="30px"
+            android:layout_centerVertical="true"
             android:textSize="14sp"
             android:text="我接单的"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:src="@drawable/arrow_gray_right"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/fragment_mycenter_rl_store"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
         android:paddingBottom="16px"
         android:paddingTop="16px"
         android:paddingLeft="30px"
@@ -95,13 +128,22 @@
             android:layout_alignParentLeft="true"
             android:textColor="@color/black"
             android:drawablePadding="30px"
+            android:layout_centerVertical="true"
             android:textSize="14sp"
             android:text="我收藏的"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:src="@drawable/arrow_gray_right"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/fragment_mycenter_rl_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
         android:paddingBottom="16px"
         android:paddingTop="16px"
         android:paddingLeft="30px"
@@ -111,9 +153,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textColor="@color/black"
+            android:layout_centerVertical="true"
             android:drawablePadding="30px"
             android:textSize="14sp"
             android:text="设置"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:src="@drawable/arrow_gray_right"/>
     </RelativeLayout>
 
 
