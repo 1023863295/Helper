@@ -1,5 +1,6 @@
 package com.vip.helper.ui;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -57,6 +58,7 @@ public class OrderListAty extends BaseAty implements View.OnClickListener{
         }
 
         recyclerView = (RecyclerView)findViewById(R.id.order_list_recycle_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
