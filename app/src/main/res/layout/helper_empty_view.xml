@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/empty_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/empty_retry_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="数据为空显示页面，点击再次加载"
+        android:textSize="14sp"
+        android:layout_margin="5dp"
+        android:textColor="#666666"
+        android:background="@drawable/btn_normal"
+        android:padding="3dp"/>
+
+</LinearLayout>

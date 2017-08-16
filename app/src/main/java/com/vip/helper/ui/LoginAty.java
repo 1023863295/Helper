@@ -16,6 +16,7 @@ import com.vip.helper.base.BaseAty;
 import com.vip.helper.bean.CommonResult;
 import com.vip.helper.bean.VipUserBean;
 import com.vip.helper.global.Constants;
+import com.vip.helper.status.MultipleStatusView;
 import com.vip.helper.tool.GsonUtils;
 import com.vip.helper.tool.OkhttpUtil;
 import com.vip.helper.tool.SharedPreferencesHelper;
@@ -42,6 +43,8 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
     private ImageView imgBack;
     private TextView textTitle;
 
+    private MultipleStatusView mMultipleStatusView;
+
     private EditText editTextUsername;
     private EditText editTextPassword;
     private Button btnLogin;
@@ -62,11 +65,11 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
             super.handleMessage(msg);
             switch (msg.what){
                 case LOGIN_FAILD:
-                    stateLayoutView.showContentView();
+//                    mMultipleStatusView.showError();
                     ToastUtil.showShortToast(LoginAty.this,"请稍后重试");
                     break;
                 case LOGIN_SUCCESS:
-                    stateLayoutView.showContentView();
+//                    mMultipleStatusView.showContent();
                    paraseResult(msg.obj.toString());
                     break;
             }
@@ -86,13 +89,13 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
 
     @Override
     protected void initView() {
-//        rootView = findViewById(R.id.login_root_view);
-//        stateLayoutView =  StateLayoutView.newInstance(this,rootView);
-
         imgBack = (ImageView)findViewById(R.id.top_title_img_back);
         imgBack.setOnClickListener(this);
         textTitle = (TextView)findViewById(R.id.top_title_text_title);
         textTitle.setText("登录");
+
+        mMultipleStatusView = (MultipleStatusView)findViewById(R.id.login_status_viwe);
+        mMultipleStatusView.showContent();
 
         editTextUsername = (EditText)findViewById(R.id.login_edit_username);
         editTextPassword = (EditText)findViewById(R.id.login_edit_password);
@@ -153,7 +156,7 @@ public class LoginAty extends BaseAty implements View.OnClickListener{
         if (!check()){
             return;
         }
-        stateLayoutView.showLoadingView();
+        mMultipleStatusView.showLoading();
         OkHttpClient okHttpClient = OkhttpUtil.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("loginName", strUsername)

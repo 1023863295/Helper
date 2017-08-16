@@ -5,26 +5,23 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.vip.helper.view.StateLayoutView;
-
 /**
  * 作者：liuliang
  * 时间 2017/7/3 21:52
  * 邮箱：liang.liu@zmind.cn
  */
 public abstract class BaseAty extends AppCompatActivity {
-    public StateLayoutView stateLayoutView;
+//    public StateLayoutView stateLayoutView;
     private View view;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initData();
         view = View.inflate(this,getLayoutView(),null);
-        stateLayoutView = StateLayoutView.newInstance(this,view);
-        setContentView(stateLayoutView);
-        stateLayoutView.showContentView();
+//        stateLayoutView = StateLayoutView.newInstance(this,view);
+        setContentView(view);
+//        stateLayoutView.showContentView();
 
         initView();
         afterViewInit();

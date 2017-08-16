@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.vip.helper.R;
 import com.vip.helper.base.BaseAty;
+import com.vip.helper.status.MultipleStatusView;
+import com.vip.helper.tool.ToastUtil;
 
 /**
  * Created by liuliang on 2017/8/15.
@@ -19,9 +21,18 @@ public class OrderListAty extends BaseAty implements View.OnClickListener{
     private TextView textTitle;
     private TextView textRight;
 
+    private MultipleStatusView multipleStatusView;
+
     private int type;
 
     private RecyclerView recyclerView;
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ToastUtil.showShortToast(OrderListAty.this,"重新加载");
+        }
+    };
 
     @Override
     protected void initData() {
@@ -43,6 +54,10 @@ public class OrderListAty extends BaseAty implements View.OnClickListener{
         textRight.setText("+");
         textRight.setTextSize(30);
         textRight.setVisibility(View.VISIBLE);
+
+        multipleStatusView = (MultipleStatusView)findViewById(R.id.order_list_multip_status_view);
+        multipleStatusView.setOnRetryClickListener(onClickListener);
+        multipleStatusView.showLoading();
 
         textTitle = (TextView)findViewById(R.id.top_title_text_title);
         switch (type){
