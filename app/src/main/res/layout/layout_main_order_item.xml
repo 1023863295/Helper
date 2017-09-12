@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10px">
+    
+    <ImageView
+        android:id="@+id/order_item_img"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_margin="10px"
+        android:src="@drawable/tab_icon_4"/>
+
+    <TextView
+        android:layout_alignTop="@id/order_item_img"
+        android:layout_toRightOf="@id/order_item_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="成也萧何败萧何"/>
+
+    <TextView
+        android:id="@+id/order_item_text_name1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_item_img"
+        android:textColor="@color/color_light_blue"
+        android:layout_margin="10px"
+        android:text="酒店八折优惠"/>
+
+    <TextView
+        android:id="@+id/order_item_text_name2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_item_text_name1"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:layout_margin="10px"
+        android:text="酒店八折优惠"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_item_text_name2"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/color_light_blue"
+            android:text="分享"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="接单"/>
+    </LinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -37,6 +37,10 @@
             android:name=".ui.HomeAty"
             android:screenOrientation="portrait" />
 
+        <!-- 订单详情页-->
+        <activity android:name=".ui.OrderDetailAty"
+            android:screenOrientation="portrait"></activity>
+
         <!-- 登录 -->
         <activity
             android:name=".ui.LoginAty"

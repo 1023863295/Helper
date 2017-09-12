@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -15,15 +17,22 @@ import android.view.ViewGroup;
 
 import com.vip.helper.R;
 import com.vip.helper.adapter.MainGridAdapter;
+import com.vip.helper.adapter.MyOrderAdapter;
+import com.vip.helper.bannerview.Banner;
+import com.vip.helper.bannerview.GlideImageLoader;
+import com.vip.helper.bannerview.OnBannerListener;
 import com.vip.helper.bean.OrderBean;
 import com.vip.helper.global.Constants;
 import com.vip.helper.tool.OkhttpUtil;
 import com.vip.helper.tool.SharedPreferencesHelper;
 import com.vip.helper.tool.ToastUtil;
+import com.vip.helper.ui.OrderDetailAty;
 import com.vip.helper.ui.WebAty;
+import com.vip.helper.view.RecycleViewDivider;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
@@ -39,15 +48,20 @@ import okhttp3.Response;
  * 时间 2017/7/5 23:09
  * 邮箱：liang.liu@zmind.cn
  */
-public class MainFragment extends Fragment implements MainGridAdapter.OnRecyclerViewItemClickListener{
+public class MainFragment extends Fragment implements MainGridAdapter.OnRecyclerViewItemClickListener,OnBannerListener ,MyOrderAdapter.OnItemClickLitener{
     private View view;
+
+    private Banner banner;
+    public static List<?> images=new ArrayList<>();
 
     private RecyclerView gridRecycleView;
     private MainGridAdapter gridAdapter;
     private RecyclerView listRecycleView;
+    private MyOrderAdapter orderAdapter;
 
     private List<Integer> gridList;
-    private List<OrderBean> orderBeanList;
+    private List<Object> orderBeanList;
+
 
     private int pageIndex = 0;
     public static final int GET_DATA_FAILD = 10;
@@ -81,6 +95,15 @@ public class MainFragment extends Fragment implements MainGridAdapter.OnRecycler
 
 
     private void initView(){
+        banner = (Banner)view.findViewById(R.id.main_fragment_banner);
+        String[] urls = getResources().getStringArray(R.array.url);
+        List list = Arrays.asList(urls);
+        images = new ArrayList(list);
+
+        banner.setImages(images)
+                .setImageLoader(new GlideImageLoader())
+                .setOnBannerListener(this)
+                .start();
         gridRecycleView = (RecyclerView)view.findViewById(R.id.main_fragment_gridview);
         //设置布局管理器
         gridRecycleView.setLayoutManager(new StaggeredGridLayoutManager(5,
@@ -99,8 +122,22 @@ public class MainFragment extends Fragment implements MainGridAdapter.OnRecycler
         gridRecycleView.setAdapter(gridAdapter);
 
         listRecycleView = (RecyclerView)view.findViewById(R.id.main_frame_listview);
-
-        getDate();
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        listRecycleView.setLayoutManager(manager);
+        orderBeanList = new ArrayList<>();
+        for (int i = 0; i < 10 ; i++) {
+            orderBeanList.add(new OrderBean());
+        }
+        orderAdapter = new MyOrderAdapter(getActivity(),orderBeanList);
+        listRecycleView.addItemDecoration(new RecycleViewDivider(
+                getActivity(),
+                LinearLayoutManager.VERTICAL,
+                10,
+                ContextCompat.getColor(getActivity(),R.color.red)));
+        listRecycleView.setAdapter(orderAdapter);
+        orderAdapter.setOnItemClickLitener(this);
+//        getDate();
     }
 
     //获取轮播广告
@@ -154,6 +191,23 @@ public class MainFragment extends Fragment implements MainGridAdapter.OnRecycler
 
     //解析请求数据
     private void paraseDate(String result){
+
+    }
+
+
+    @Override
+    public void OnBannerClick(int position) {
+        ToastUtil.showShortToast(getActivity(),"点击"+position);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent(getActivity(), OrderDetailAty.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
 
     }
 }
